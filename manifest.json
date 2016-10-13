@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Popular Kid",
+  "description": "Fills in forms on LDC",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "icon.png",
+   "default_popup": "main.html"
+  },
+  "permissions": [
+   "activeTab"
+   ]
+}
