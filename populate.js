@@ -22,7 +22,7 @@ var inputFillers = [
   fillInput('info_lastName', lastname),
   // TODO: generate SSN?
   fillInput('info_ssn', '123456789'),
-  fillInput('info_mobilePhone', generateValidPhoneNumber()),
+  fillInput('info_mobilePhone', util.generateValidPhoneNumber()),
 
   selectFiller('birthDate-month', '02'),
   selectFiller('birthDate-day', '03'),
@@ -92,30 +92,3 @@ function selectFiller(id, value) {
     }
   };
 }
-
-// value generating functions
-//////////////////////////////////////
-
-// https://en.wikipedia.org/wiki/North_American_Numbering_Plan#Modern_plan
-function generateValidPhoneNumber() {
-    var np1;
-    var np2;
-    var nxx;
-
-    do {
-        np1 = randomInteger(0,9);
-        np2 = randomInteger(0,9);
-    } while (np1 === np2);
-
-    do {
-        nxx = randomInteger(200, 999);
-    } while (((nxx - 11) % 100) == 0 && nxx != 555);  // can't be 911, 411, 611, etc. or 555
-
-    return randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
-           randomInteger(0,9).toString() + randomInteger(0,9).toString() + randomInteger(0,9).toString() +
-           randomInteger(0,9).toString();
-}
-
-function randomInteger(lo, hi) {
-    return Math.floor(lo + (Math.random() * ((hi - lo) + 1)))
-};
