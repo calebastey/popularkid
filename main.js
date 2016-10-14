@@ -1,3 +1,8 @@
+var addressMap = {
+    CA: [37.760093, -122.445554],
+    TX: [0, 0]
+}
+
 // setup listeners (and other things?) once the plugin DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -34,6 +39,12 @@ document.getElementById("generateNumber").addEventListener("click", function() {
     document.getElementById("randomPhone").innerHTML = generateValidPhoneNumber();
 });
 
+document.getElementById("validAddress").addEventListener("click", function() {
+    generateValidAddress("CA").done(function(formattedAddress) {
+        document.getElementById("validAddressView").innerHTML = formattedAddress;
+    })
+});
+
 // return callback for shortcut click
 function shortcutClick(shortcut) {
   return function(){
@@ -47,7 +58,9 @@ function shortcutClick(shortcut) {
 
 // https://en.wikipedia.org/wiki/North_American_Numbering_Plan#Modern_plan
 function generateValidPhoneNumber() {
-    var np1, np2, nxx;
+    var np1;
+    var np2;
+    var nxx;
 
     do {
         np1 = randomInteger(0,9);
@@ -61,7 +74,21 @@ function generateValidPhoneNumber() {
     return randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
            randomInteger(0,9).toString() + randomInteger(0,9).toString() + randomInteger(0,9).toString() +
            randomInteger(0,9).toString();
-};
+}
+
+function generateValidAddress(state) {
+    var latlon = addressMap[state];
+    latlon[0] += (Math.random() / 10 - 0.05);
+    latlon[1] += (Math.random() / 10 - 0.05);
+    var deferred = $.Deferred();
+
+    $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlon[0] + "," + latlon[1], function(data) {
+        var formattedAddress = data.results[0].formatted_address;
+        deferred.resolve(formattedAddress);
+    });
+
+    return deferred.promise();
+}
 
 function randomInteger(lo, hi) {
     return Math.floor(lo + (Math.random() * ((hi - lo) + 1)))

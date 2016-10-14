@@ -11,5 +11,6 @@
   },
   "permissions": [
    "activeTab"
-   ]
+   ],
+  "content_security_policy": "script-src 'self' http://code.jquery.com; object-src 'self'"
 }
