@@ -45,9 +45,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // setup listener for the "populate" button
   var populate = document.getElementById('populate');
   populate.addEventListener('click', function() {
+
+    // setup some context/configuration prior to population
+    var populateContext = {
+      approve: document.getElementById('approveOrDecline_approve').checked,
+    };
+
+    chrome.tabs.executeScript({
+      code:'var populateContext = ' + JSON.stringify(populateContext) + ';'
+
+    });
+
     chrome.tabs.executeScript({
       file:'populate.js'
     });
+
   }, false);
 
 }, false);

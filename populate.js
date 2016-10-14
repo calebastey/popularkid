@@ -1,8 +1,15 @@
 console.log('populating form...');
 
+console.log('populateContext.approve: ' + populateContext.approve);
+
 // some inputs are interdependent, prepare values for those fields here
 var password = '1234qwer';
-
+var lastname;
+if (populateContext.approve) {
+  lastname = 'Awesome';
+} else {
+  lastname = 'Asshole';
+}
 
 var inputFillers = [
   // TODO: generate random valid email address
@@ -12,7 +19,7 @@ var inputFillers = [
   checkboxFiller('certify', true),
 
   fillInput('info_firstName', 'Sam'),
-  fillInput('info_lastName', 'Clemens'),
+  fillInput('info_lastName', lastname),
   // TODO: generate SSN?
   fillInput('info_ssn', '123456789'),
   fillInput('info_mobilePhone', generateValidPhoneNumber()),
