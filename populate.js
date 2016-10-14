@@ -24,6 +24,11 @@ var inputFillers = [
   fillInput('info_ssn', '123456789'),
   fillInput('info_mobilePhone', generateValidPhoneNumber()),
 
+  selectFiller('birthDate-month', '02'),
+  selectFiller('birthDate-day', '03'),
+  selectFiller('birthDate-year', '1977'),
+
+
   fillInput('info_address_street1', ''),
   fillInput('info_address_city', ''),
   fillInput('info_address_state', ''),
