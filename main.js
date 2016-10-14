@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // setup some context/configuration prior to population
     var populateContext = {
       approve: document.getElementById('approveOrDecline_approve').checked,
+      usState: document.getElementById('popState').value,
     };
 
     chrome.tabs.executeScript({
@@ -36,13 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }, false);
 
 }, false);
-
-document.getElementById("validAddress").addEventListener("click", function() {
-    utils.generateValidAddress("CA").done(function(address) {
-        document.getElementById("validAddressView").innerHTML = address;
-        console.log(address);
-    })
-});
 
 // return callback for shortcut click
 function shortcutClick(shortcut) {
