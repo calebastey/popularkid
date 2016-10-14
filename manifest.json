@@ -9,7 +9,7 @@
     {
       "matches": ["http://dev.lendup.com:9999/*", "https://staging.lendup.com/"],
       "css": [],
-      "js": ["populate.js", "utils.js", "jquery.js"]
+      "js": [ "utils.js", "jquery.js"]
     }
   ],
 
