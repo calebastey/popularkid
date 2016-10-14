@@ -1,6 +1,4 @@
-var randr = function(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-};
+
 
 const addresses = {
     "default": {
@@ -153,6 +151,10 @@ const addresses = {
         city: 'Cheyenne',
         zip: '82001'
     }
+};
+
+var randr = function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 };
 
 var utils = {
