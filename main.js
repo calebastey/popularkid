@@ -65,8 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 document.getElementById("validAddress").addEventListener("click", function() {
-    generateValidAddress("CA").done(function(formattedAddress) {
-        document.getElementById("validAddressView").innerHTML = formattedAddress;
+    generateValidAddress("CA").done(function(address) {
+        document.getElementById("validAddressView").innerHTML = address;
+        console.log(address);
     })
 });
 
@@ -88,8 +89,41 @@ function generateValidAddress(state) {
     var deferred = $.Deferred();
 
     $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlon[0] + "," + latlon[1], function(data) {
-        var formattedAddress = data.results[0].formatted_address;
-        deferred.resolve(formattedAddress);
+        var address = {
+            addressLine1: "",
+            addressLine2: "",
+            city: "",
+            state: "",
+            zip: ""
+        }
+        var streetNumber = "";
+        var route = "";
+
+        if (data.status == "OK") {
+            var components = data.results[0].address_components;
+            for (var i = 0; i < components.length; i++) {
+                if (components[i].types.includes('street_number')) {
+                    streetNumber = components[i].short_name;
+                }
+                else if (components[i].types.includes('route')) {
+                    route = components[i].short_name;
+                }
+                else if (components[i].types.includes('locality')) {
+                    address.city = components[i].long_name;
+                }
+                else if (components[i].types.includes('administrative_area_level_1')) {
+                    address.state = components[i].short_name;
+                }
+                else if (components[i].types.includes('postal_code')) {
+                    address.zip = components[i].short_name;
+                }
+            }
+            address.addressLine1 = streetNumber + " " + route;
+            deferred.resolve(address);
+        } else {
+            console.log("Unable to get address results: Error is " + data.status)
+        }
+
     });
 
     return deferred.promise();

@@ -95,11 +95,11 @@ const addresses = {
         city: 'Santa Fe',
         zip: '87501'
     },
-    "Ohio": { 
+    "Ohio": {
         street1: '281 W. Lane Ave',
-        street2: '', 
-        city: 'Columbus', 
-        zip: '43210' 
+        street2: '',
+        city: 'Columbus',
+        zip: '43210'
     },
     "Oklahoma": {
         street1: '2300 N Lincoln Blvd',
