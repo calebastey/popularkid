@@ -1,5 +1,3 @@
-
-
 const addresses = {
     "default": {
         street1: '',
@@ -153,10 +151,6 @@ const addresses = {
     }
 };
 
-var randr = function(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-};
-
 var utils = {
     withDefaults: function(defaults, overrides) {
         var out = {};
@@ -170,13 +164,17 @@ var utils = {
         return out;
     },
 
+    randr: function(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    },
+
     newEmail: function(suffix) {
         var suffix = suffix || '@lendup.com';
         return `selenium.test.${Math.random()}${suffix}`;
     },
 
     newSSN: function() {
-        return `${randr(100, 999)}-55-${randr(1000, 9999)}`;
+        return `${this.randr(100, 999)}-55-${this.randr(1000, 9999)}`;
     },
 
     newPassword: function() {
@@ -184,7 +182,7 @@ var utils = {
     },
 
     newPhone: function(areaCode) {
-        return `650-3${randr(10, 99)}-${randr(1000,9999)}`;
+        return `650-3${this.randr(10, 99)}-${this.randr(1000,9999)}`;
     },
 
     newNextPayDate: function() {
@@ -193,15 +191,15 @@ var utils = {
     },
 
     newAccountNumber: function() {
-        return randr(100000, 9999999999999999);
+        return this.randr(100000, 9999999999999999);
     },
 
     newCampaign: function() {
-        return 'TV ' + randr(10, 999);
+        return 'TV ' + this.randr(10, 999);
     },
 
     newPromoCode: function() {
-        return 'TV' + randr(10, 999999);
+        return 'TV' + this.randr(10, 999999);
     },
 
     validAddress: function(state) {
