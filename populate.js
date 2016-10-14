@@ -11,9 +11,11 @@ if (populateContext.approve) {
   lastname = 'Asshole';
 }
 
+var address = addresses[populateContext.usState];
+
 var inputFillers = [
   // TODO: generate random valid email address
-  fillInput('user_email', 'cgottlieb1234@gmail.com'),
+  fillInput('user_email', utils.newEmail()),
   fillInput('user_password', password),
   fillInput('user_password_verify', password),
   checkboxFiller('certify', true),
@@ -28,11 +30,10 @@ var inputFillers = [
   selectFiller('birthDate-day', '03'),
   selectFiller('birthDate-year', '1977'),
 
-
-  fillInput('info_address_street1', ''),
-  fillInput('info_address_city', ''),
-  fillInput('info_address_state', ''),
-  fillInput('info_address_zip', '94901'),
+  fillInput('info_address_street1', address.street1),
+  fillInput('info_address_city', address.city),
+  selectFiller('info_address_state', populateContext.usState),
+  fillInput('info_address_zip', address.zip),
 
   selectFiller('residenceType', 'RENT'),
   fillInput('monthlyResidencePayment', '1500'),
