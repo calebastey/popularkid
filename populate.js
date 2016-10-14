@@ -24,6 +24,16 @@ var inputFillers = [
   fillInput('info_ssn', '123456789'),
   fillInput('info_mobilePhone', generateValidPhoneNumber()),
 
+  fillInput('info_address_street1', ''),
+  fillInput('info_address_city', ''),
+  fillInput('info_address_state', ''),
+  fillInput('info_address_zip', '94901'),
+
+  selectFiller('residenceType', 'RENT'),
+  fillInput('monthlyResidencePayment', '1500'),
+  fillInput('averageMonthlyExpenses', '500'),
+
+  selectFiller('loanPurpose', 'AUTO_EXPENSE'),
 
 ];
 
@@ -59,6 +69,24 @@ function checkboxFiller(id, value) {
     }
   };
 };
+
+// return function that will select the specified option
+function selectFiller(id, value) {
+  return function(){
+    var select = document.getElementById(id);
+    if(select) {
+      var options = select.options;
+        for(var option, j = 0; option = options[j]; j++) {
+          if(option.value == value) {
+            select.selectedIndex = j;
+            break;
+          }
+        }
+    } else {
+      console.log('no input found for id: ' + id);
+    }
+  };
+}
 
 // value generating functions
 //////////////////////////////////////
