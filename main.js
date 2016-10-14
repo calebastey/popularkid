@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // setup listeners for all shortcuts
   for (shortcut of shortcuts) {
-    console.log(shortcut);
     var link = document.getElementById(shortcut.id);
     link.addEventListener('click', shortcutClick(shortcut), false);
   }
@@ -24,20 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // setup listener for the "populate" button
   var populate = document.getElementById('populate');
   populate.addEventListener('click', function() {
-    console.log('populating form...');
-
     chrome.tabs.executeScript({
       file:'populate.js'
     });
-
-    console.log('...done populating!');
   }, false);
 
 }, false);
-
-document.getElementById("generateNumber").addEventListener("click", function() {
-    document.getElementById("randomPhone").innerHTML = generateValidPhoneNumber();
-});
 
 document.getElementById("validAddress").addEventListener("click", function() {
     generateValidAddress("CA").done(function(formattedAddress) {
@@ -56,26 +47,6 @@ function shortcutClick(shortcut) {
   };
 };
 
-// https://en.wikipedia.org/wiki/North_American_Numbering_Plan#Modern_plan
-function generateValidPhoneNumber() {
-    var np1;
-    var np2;
-    var nxx;
-
-    do {
-        np1 = randomInteger(0,9);
-        np2 = randomInteger(0,9);
-    } while (np1 === np2);
-
-    do {
-        nxx = randomInteger(200, 999);
-    } while (((nxx - 11) % 100) == 0 && nxx != 555);  // can't be 911, 411, 611, etc. or 555
-
-    return randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
-           randomInteger(0,9).toString() + randomInteger(0,9).toString() + randomInteger(0,9).toString() +
-           randomInteger(0,9).toString();
-}
-
 function generateValidAddress(state) {
     var latlon = addressMap[state];
     latlon[0] += (Math.random() / 10 - 0.05);
@@ -90,6 +61,3 @@ function generateValidAddress(state) {
     return deferred.promise();
 }
 
-function randomInteger(lo, hi) {
-    return Math.floor(lo + (Math.random() * ((hi - lo) + 1)))
-};
