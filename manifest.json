@@ -5,6 +5,14 @@
   "description": "Fills in forms on LDC",
   "version": "1.0",
 
+  "content_scripts": [
+    {
+      "matches": ["http://dev.lendup.com:9999/*", "https://staging.lendup.com/"],
+      "css": [],
+      "js": ["populate.js", "utils.js", "jquery.js"]
+    }
+  ],
+
   "browser_action": {
    "default_icon": "icon.png",
    "default_popup": "main.html"

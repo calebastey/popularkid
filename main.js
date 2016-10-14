@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    chrome.tabs.executeScript({
-      file:'utils.js'
-    });
+    // chrome.tabs.executeScript({
+    //   file:'utils.js'
+    // });
 
     chrome.tabs.executeScript({
       file:'populate.js'
