@@ -25,7 +25,7 @@ var addressMap = {
     WY: [42.844779, -106.311006]
 };
 
-var util = {
+var utils = {
     withDefaults: function(defaults, overrides) {
         var out = {};
 
@@ -85,17 +85,17 @@ var util = {
         var nxx;
 
         do {
-            np1 = randomInteger(0,9);
-            np2 = randomInteger(0,9);
+            np1 = this.randomInteger(0,9);
+            np2 = this.randomInteger(0,9);
         } while (np1 === np2);
 
         do {
-            nxx = randomInteger(200, 999);
+            nxx = this.randomInteger(200, 999);
         } while (((nxx - 11) % 100) == 0 && nxx != 555);  // can't be 911, 411, 611, etc. or 555
 
-        return randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
-               randomInteger(0,9).toString() + randomInteger(0,9).toString() + randomInteger(0,9).toString() +
-               randomInteger(0,9).toString();
+        return this.randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
+               this.randomInteger(0,9).toString() + this.randomInteger(0,9).toString() + this.randomInteger(0,9).toString() +
+               this.randomInteger(0,9).toString();
     },
     randomInteger(lo, hi) {
         return Math.floor(lo + (Math.random() * ((hi - lo) + 1)))
