@@ -1,6 +1,28 @@
 var addressMap = {
+    AL: [33.516477, -86.801318],
     CA: [37.760093, -122.445554],
-    TX: [0, 0]
+    FL: [28.537098, -81.374139],
+    HI: [21.450891, -158.015506],
+    ID: [43.615652, -116.382023],
+    IL: [40.720637, -89.588852],
+    IN: [39.769977, -86.158098],
+    KS: [37.686880, -97.313677],
+    LA: [30.459937, -91.138468],
+    ME: [44.800996, -68.775865],
+    MN: [45.553738, -94.202043],
+    MS: [32.308360, -90.195949],
+    MO: [38.577342, -92.181853],
+    NM: [35.109296, -106.587914],
+    OH: [39.983008, -83.007009],
+    OK: [35.555878, -97.524654],
+    OR: [44.045282, -123.099215],
+    SC: [34.002269, -81.038380],
+    TN: [36.170924, -86.785468],
+    TX: [32.839374, -96.795799],
+    UT: [40.592341, -111.919458],
+    WA: [47.667867, -117.413954],
+    WI: [43.047923, -88.114132],
+    WY: [42.844779, -106.311006]
 }
 
 // setup listeners (and other things?) once the plugin DOM is loaded
@@ -16,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // setup listeners for all shortcuts
   for (shortcut of shortcuts) {
-    console.log(shortcut);
     var link = document.getElementById(shortcut.id);
     link.addEventListener('click', shortcutClick(shortcut), false);
   }
@@ -24,20 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // setup listener for the "populate" button
   var populate = document.getElementById('populate');
   populate.addEventListener('click', function() {
-    console.log('populating form...');
-
     chrome.tabs.executeScript({
       file:'populate.js'
     });
-
-    console.log('...done populating!');
   }, false);
 
 }, false);
-
-document.getElementById("generateNumber").addEventListener("click", function() {
-    document.getElementById("randomPhone").innerHTML = generateValidPhoneNumber();
-});
 
 document.getElementById("validAddress").addEventListener("click", function() {
     generateValidAddress("CA").done(function(formattedAddress) {
@@ -56,26 +69,6 @@ function shortcutClick(shortcut) {
   };
 };
 
-// https://en.wikipedia.org/wiki/North_American_Numbering_Plan#Modern_plan
-function generateValidPhoneNumber() {
-    var np1;
-    var np2;
-    var nxx;
-
-    do {
-        np1 = randomInteger(0,9);
-        np2 = randomInteger(0,9);
-    } while (np1 === np2);
-
-    do {
-        nxx = randomInteger(200, 999);
-    } while (((nxx - 11) % 100) == 0 && nxx != 555);  // can't be 911, 411, 611, etc. or 555
-
-    return randomInteger(2,9) + np1.toString() + np2.toString() + "-" + nxx + "-" +
-           randomInteger(0,9).toString() + randomInteger(0,9).toString() + randomInteger(0,9).toString() +
-           randomInteger(0,9).toString();
-}
-
 function generateValidAddress(state) {
     var latlon = addressMap[state];
     latlon[0] += (Math.random() / 10 - 0.05);
@@ -90,6 +83,3 @@ function generateValidAddress(state) {
     return deferred.promise();
 }
 
-function randomInteger(lo, hi) {
-    return Math.floor(lo + (Math.random() * ((hi - lo) + 1)))
-};
