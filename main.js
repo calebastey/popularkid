@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     chrome.tabs.executeScript({
+      file:'utils.js'
+    });
+
+    chrome.tabs.executeScript({
       file:'populate.js'
     });
 
@@ -38,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 document.getElementById("validAddress").addEventListener("click", function() {
-    util.generateValidAddress("CA").done(function(address) {
+    utils.generateValidAddress("CA").done(function(address) {
         document.getElementById("validAddressView").innerHTML = address;
         console.log(address);
     })

@@ -22,7 +22,7 @@ var inputFillers = [
   fillInput('info_lastName', lastname),
   // TODO: generate SSN?
   fillInput('info_ssn', '123456789'),
-  fillInput('info_mobilePhone', util.generateValidPhoneNumber()),
+  fillInput('info_mobilePhone', utils.generateValidPhoneNumber()),
 
   selectFiller('birthDate-month', '02'),
   selectFiller('birthDate-day', '03'),
